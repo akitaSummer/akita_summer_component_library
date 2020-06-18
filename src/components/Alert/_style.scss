@@ -1,0 +1,12 @@
+.alert {
+  position: relative;
+  font-weight: $alert-font-weight;
+  line-height: $alert-line-height;
+  color: $white;
+  min-width: 500px;
+  padding: $alert-padding-y $alert-padding-x;
+  margin-bottom: $alert-margin-bottom;
+  border: $alert-border-width solid transparent;
+  border-radius: $alert-border-radius;
+  background: $primary;
+}
