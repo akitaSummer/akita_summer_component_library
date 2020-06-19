@@ -1,6 +1,6 @@
 import React from 'react';
-import Button, {ButtonSize, ButtonType} from "./components/Button/button";
-import Alert from'./components/Alert/alert'
+import Button, { ButtonSize, ButtonType } from "./components/Button/button";
+import Alert, { AlertType } from'./components/Alert/alert'
 
 function App() {
   return (
@@ -12,6 +12,7 @@ function App() {
         <Button btnType={ButtonType.Link} disabled href={'http://www.baidu.com'} target='_blank'> Hello Baidu </Button>
         <Button btnType={ButtonType.Link} href={'http://www.baidu.com'} target='_blank'> Hello Baidu </Button>
         <Alert title={'this is alert!!'}/>
+        <Alert title={'this is alert!!'} type={AlertType.Danger} description={'this is a description'}/>
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>

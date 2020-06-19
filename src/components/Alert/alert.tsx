@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import classNames from "classnames";
 
 export enum AlertType {
@@ -8,7 +8,7 @@ export enum AlertType {
   Warning = 'Warning'
 }
 
-interface AlertProps {
+interface BaseAlertProps {
   className?: string
   closable?: boolean
   type?: AlertType
@@ -17,15 +17,35 @@ interface AlertProps {
   onClose?: (...item: any[]) => void
 }
 
+export type AlertProps = Partial<BaseAlertProps & React.BaseHTMLAttributes<HTMLElement>>
+
 const Alert: React.FC<AlertProps> = (props) => {
-  const { className, closable , type , title , description, onClose } = props
-  const classes = classNames('alert', className, {
-    [`alert-${type}`]: type
+  const [isClose, setIsClose] = useState(false)
+  const [isDel, setIsDel] = useState(false)
+  const { className, closable , type , title , description, onClose, ...restProps } = props
+  const containerClasses = classNames('alert-container', className)
+  const classes = classNames('alert', {
+    [`alert-${type}`]: type,
+    'close': isClose
   })
   return (
-    <div className={classes}>
-      <span className={'alert-title'}>{title}</span>
-      <span className={'alert-close'}></span>
+    <div className={containerClasses} {...restProps}>
+    {
+      isDel ? '' : (
+        <div className={classes}>
+          <span className={'alert-title'}>{title}</span>
+          <span
+            className={'alert-close iconfont icon-close'}
+            onClick={() => {
+              setIsClose(true)
+              setTimeout(() => {setIsDel(true)}, 500)
+              onClose && onClose()
+            }}
+          />
+          { closable ? <div className="alert-description">{ description }</div> : ''}
+        </div>
+      )
+    }
     </div>
   )
 }
