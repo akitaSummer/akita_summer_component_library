@@ -1,6 +1,9 @@
 import React from 'react';
 import Button, { ButtonSize, ButtonType } from "./components/Button/button";
 import Alert, { AlertType } from'./components/Alert/alert'
+import Menu from "./components/Menu/menu";
+import MenuItem from './components/Menu/menuItem'
+import SubMenu from "./components/Menu/subMenu";
 
 function App() {
   return (
@@ -13,6 +16,19 @@ function App() {
         <Button btnType={ButtonType.Link} href={'http://www.baidu.com'} target='_blank'> Hello Baidu </Button>
         <Alert title={'this is alert!!'}/>
         <Alert title={'this is alert!!'} type={AlertType.Danger} description={'this is a description'}/>
+        <Menu defaultIndex={'0'} onSelect={(index) => {alert(index)}}>
+          <MenuItem>
+            cool link
+          </MenuItem>
+          <MenuItem>
+            cool link
+          </MenuItem>
+          <SubMenu title={'dropdown'}>
+            <MenuItem>
+              cool link
+            </MenuItem>
+          </SubMenu>
+        </Menu>
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
