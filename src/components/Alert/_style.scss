@@ -32,10 +32,12 @@
     }
     .alert-close {
       position: absolute;
-      top: 0;
-      right: 0;
-      padding: $alert-padding-y $alert-padding-x;
+      top: 12px;
+      right: 20px;
       cursor: pointer;
+      width: 20px;
+      height: 20px;
+      color: $white;
     }
     .alert-description {
       font-weight: $alert-description-font-weight;

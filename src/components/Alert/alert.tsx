@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import classNames from "classnames";
+import Icon from "../Icon/icon";
 
 export enum AlertType {
   Success = 'success',
@@ -34,8 +35,10 @@ const Alert: React.FC<AlertProps> = (props) => {
       isDel ? '' : (
         <div className={classes}>
           <span className={'alert-title'}>{title}</span>
-          <span
-            className={'alert-close iconfont icon-close'}
+          <Icon
+            icon={'times'}
+            size={'1x'}
+            className={'alert-close'}
             onClick={() => {
               setIsClose(true)
               setTimeout(() => {setIsDel(true)}, 500)
