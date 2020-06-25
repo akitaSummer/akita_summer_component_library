@@ -1,0 +1,38 @@
+.akita-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 30px;
+  list-style: none;
+  border-bottom: $tabs-border-width solid $tabs-border-color;
+  box-shadow: $tabs-box-shadow;
+  >.akita-tab-item {
+    padding: $tabs-item-padding-y $tabs-item-padding-x;
+    cursor: pointer;
+    transition: $tabs-transition;
+    &:hover, &:focus {
+      text-decoration: none;
+    }
+    &.is-disabled {
+      color: $tabs-item-disabled-color;
+      pointer-events: none;
+      cursor: default;
+    }
+    &.is-active, &:hover {
+      color: $tabs-item-active-color;
+      border-bottom: $tabs-item-active-border-width solid $tabs-item-active-color;
+    }
+  }
+  &.card-tabs {
+    >.akita-tab-item {
+      border: $tabs-border-width solid transparent;
+      margin-bottom: -2px;
+      &.is-active {
+        border-top-left-radius: $tabs-item-border-top-left-radius;
+        border-top-right-radius: $tabs-item-border-top-right-radius;
+        background: $white;
+        border-color: $gray-300 $gray-300 $white;
+      }
+    }
+  }
+}

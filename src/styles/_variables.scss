@@ -299,3 +299,18 @@ $alert-margin-bottom:           1rem !default;
 $alert-border-width:            $border-width !default;
 $alert-border-radius:           $border-radius !default;
 $alert-description-font-weight:             400 !default;
+
+// tabs
+$tabs-border-width:            $border-width !default;
+$tabs-border-color:            $border-color !default;
+$tabs-box-shadow:              inset 0 1px 0 rgba($white, .15), 0 1px 1px rgba($black, .075) !default;
+$tabs-transition:              color .15s ease-in-out, border-color .15s ease-in-out !default;
+
+// tab-item
+$tabs-item-padding-y:          .5rem !default;
+$tabs-item-padding-x:          1rem !default;
+$tabs-item-active-color:       $primary !default;
+$tabs-item-active-border-width: 2px !default;
+$tabs-item-disabled-color:     $gray-600 !default;
+$tabs-item-border-top-left-radius: 0.25rem !default;
+$tabs-item-border-top-right-radius: 0.25rem !default;

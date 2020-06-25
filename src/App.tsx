@@ -2,12 +2,14 @@ import React, {useState} from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 import Button from "./components/Button/button";
-import Alert, { AlertType } from'./components/Alert/alert'
+import Alert from'./components/Alert/alert'
 import Menu from "./components/Menu/menu";
 import MenuItem from './components/Menu/menuItem'
 import SubMenu from "./components/Menu/subMenu";
 import Icon from "./components/Icon/icon";
 import Transition from "./components/Transition/transition";
+import Tabs from "./components/Tabs/tabs";
+import TabItem from "./components/Tabs/tabItem";
 
 function App() {
   const [show, setShow] = useState(false)
@@ -22,7 +24,7 @@ function App() {
         <Button btnType={'link'} disabled href={'http://www.baidu.com'} target='_blank'> Hello Baidu </Button>
         <Button btnType={'link'} href={'http://www.baidu.com'} target='_blank'> Hello Baidu </Button>
         <Alert title={'this is alert!!'}/>
-        <Alert title={'this is alert!!'} type={AlertType.Danger} description={'this is a description'}/>
+        <Alert title={'this is alert!!'} type={'danger'} description={'this is a description'}/>
         <Menu defaultIndex={'0'} onSelect={(index) => {alert(index)}}>
           <MenuItem>
             cool link
@@ -37,6 +39,17 @@ function App() {
           </SubMenu>
         </Menu>
         <Button size={'lg'} onClick={() => { setShow(!show) }}>Toggle</Button>
+        <Tabs type={'card'}>
+          <TabItem label={'item1'}>
+            this is item1 content
+          </TabItem>
+          <TabItem label={<Icon icon={'coffee'} theme={'primary'} size={'1x'}/>}>
+            this is item2 content
+          </TabItem>
+          <TabItem label={'item3'} disabled>
+            this is item3 content
+          </TabItem>
+        </Tabs>
         <Transition
           in={show}
           timeout={300}
