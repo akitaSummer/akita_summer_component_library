@@ -20,7 +20,7 @@ interface BaseAlertProps {
 
 export type AlertProps = Partial<BaseAlertProps & BaseHTMLAttributes<HTMLElement>>
 
-const Alert: FC<AlertProps> = (props) => {
+export const Alert: FC<AlertProps> = (props) => {
   const [isClose, setIsClose] = useState(false)
   const [isDel, setIsDel] = useState(false)
   const { className, closable , type , title , description, onClose, ...restProps } = props

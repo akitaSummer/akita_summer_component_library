@@ -1,16 +1,18 @@
-import React, { FC, useEffect, useContext } from "react";
+import React, { FC, useEffect, useContext, ReactNode, CSSProperties } from "react";
 import classNames from "classnames";
 import { TabsContext } from './tabs'
 
 export interface TabItemProps {
   index?: number,
+  /**Tab选项是否被禁用*/
   disabled?: boolean,
   className?: string,
-  style?: React.CSSProperties
-  label: string | React.ReactNode
+  style?: CSSProperties
+  /**Tab选项上面的文字*/
+  label: string | ReactNode
 }
 
-const TabItem: FC<TabItemProps> = (props) => {
+export const TabItem: FC<TabItemProps> = (props) => {
   const { index, disabled, className, style, children, label } = props
   const context = useContext(TabsContext)
   const classes = classNames('akita-tab-item', className, {

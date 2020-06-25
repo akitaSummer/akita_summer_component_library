@@ -9,10 +9,13 @@ type SelectCallback = (selectIndex: number) => void
 type ItemCallback = (selectIndex: number, children: string | React.ReactNode) => void
 
 interface TabsProp {
+  /**Tabs的样式，两种可选，默认为 default*/
   type?: TabsType,
+  /**当前激活 tab 面板的 index，默认为0*/
   defaultIndex?: number,
   className?: string,
   style?: React.CSSProperties,
+  /**点击 Tab 触发的回调函数*/
   onSelect?: SelectCallback
 }
 
@@ -24,7 +27,7 @@ interface ITabsContext {
 
 export const TabsContext = createContext<ITabsContext>({ index: 0 })
 
-const Tabs: FC<TabsProp> = (props) => {
+export const Tabs: FC<TabsProp> = (props) => {
   const { type, defaultIndex, children, style, className, onSelect} = props
   const [currentActive, setAcitve] = useState(defaultIndex as number)
   const [context, setContext] = useState<string | React.ReactNode>('')
