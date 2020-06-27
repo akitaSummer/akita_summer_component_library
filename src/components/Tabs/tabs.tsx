@@ -62,7 +62,7 @@ export const Tabs: FC<TabsProp> = (props) => {
   }
 
   return (
-    <div className={'akita-tabs-container'}>
+    <div className={'akita-tabs-container'} style={style}>
       <ul className={classes}>
         <TabsContext.Provider value={passedContext}>
           {renderChildren()}
