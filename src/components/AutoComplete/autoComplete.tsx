@@ -21,8 +21,11 @@ interface DataSourceObject {
 export type DataSourceType<T = {}> = T & DataSourceObject
 
 export interface AutoCompleteProps extends Omit<InputProps, 'onSelect'>{
+  /**返回输入建议的方法，可以拿到当前的输入，然后返回同步的数组或者是异步的 Promise*/
   fetchSuggestions: (str: string) => DataSourceType[] | Promise<DataSourceType[]>,
+  /**选中时的回调*/
   onSelect?: (item: DataSourceType) => void,
+  /**自定义下拉菜单*/
   renderOption?: (item: DataSourceType) => ReactElement,
 }
 
