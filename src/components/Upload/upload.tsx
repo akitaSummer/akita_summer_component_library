@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import Button from "../Button/button";
 import UploadList from "./uploadList";
+import Dragger from "./dragger";
 
 export type UploadFileStatue = 'ready' | 'uploading' | 'success' | 'error'
 
@@ -24,8 +25,15 @@ export interface UploadProps {
   onSuccess?: (data: any, file: File) => void,
   onError?: (err: any, file: File) => void,
   beforeUpload?: (file: File) => boolean | Promise<File>,
-  onChange?: (file: File) => File,
-  onRemove?: (file: UploadFile) => void
+  onChange?: (file: File) => void,
+  onRemove?: (file: UploadFile) => void,
+  headers?: {[key: string]: any},
+  name?: string,
+  data?: {[key: string]: any},
+  withCredentials?: boolean,
+  accept?: string,
+  multiple?: boolean,
+  drag?: boolean
 }
 
 
@@ -38,7 +46,15 @@ export const Upload: FC<UploadProps> = (props) => {
     onSuccess,
     beforeUpload,
     onChange,
-    onRemove
+    onRemove,
+    name,
+    headers,
+    data,
+    withCredentials,
+    accept,
+    multiple,
+    children,
+    drag,
   } = props
 
   const [ fileList, setFileList ] = useState<UploadFile[]>(defaultFileList || [])
@@ -47,6 +63,7 @@ export const Upload: FC<UploadProps> = (props) => {
     setFileList(prevList => {
       return prevList.map(file => {
         if (file.uid === updateFile.uid) {
+          console.log(updateObj)
           return {...file, ...updateObj}
         } else {
           return file
@@ -100,7 +117,6 @@ export const Upload: FC<UploadProps> = (props) => {
           post(file)
         }
       }
-      post(file)
     })
   }
 
@@ -113,18 +129,30 @@ export const Upload: FC<UploadProps> = (props) => {
       percent: 0,
       raw: file
     }
-    setFileList([_file, ...fileList])
+    // setFileList([_file, ...fileList])
+    // 兼容多选
+    setFileList((prevList) => {
+      return [_file, ...prevList]
+    })
     const formData = new FormData()
-    formData.append(file.name, file)
+    formData.append(name || 'file', file)
+    if (data) {
+      Object.keys(data).forEach(key => {
+        formData.append(key, data[key])
+      })
+    }
     try {
       // 发送请求
       const resp = await axios.post(action, formData, {
         headers: {
+          ...headers,
           'Content-Type': 'multipart/form-data'
         },
+        withCredentials,
         // 发送中触发onProgress生命周期函数
         onUploadProgress: (e) => {
           let percentage = Math.round((e.loaded * 100) / e.total) || 0
+          console.log(percentage)
           if (percentage < 100) {
             // 更新百分比
             updateFileList(_file, { percent: percentage, status: 'uploading'})
@@ -154,25 +182,34 @@ export const Upload: FC<UploadProps> = (props) => {
 
   return (
     <div className="akita-upload-component">
-      <Button
-        btnType={'primary'}
+      <div
+        className={'akita-upload-input'}
+        style={{display: 'inline-block'}}
         onClick={handleClick}
       >
-        Upload File
-      </Button>
-      <input
-        style={{ display: 'none' }}
-        type="file"
-        className="akita-file-input"
-        ref={fileInput}
-        onChange={handleFileChange}
-      />
+        { drag ? <Dragger onFile={(files) => { uploadFiles(files) }}>
+          { children }
+        </Dragger> : children }
+        <input
+          style={{ display: 'none' }}
+          type="file"
+          className="akita-file-input"
+          ref={fileInput}
+          onChange={handleFileChange}
+          accept={accept}
+          multiple={multiple}
+        />
+      </div>
       <UploadList
         fileList={fileList}
         onRemove={handleRemove}
       />
     </div>
   )
+}
+
+Upload.defaultProps = {
+  name: 'file'
 }
 
 export default Upload
