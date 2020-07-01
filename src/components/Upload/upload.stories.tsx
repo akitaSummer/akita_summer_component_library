@@ -2,7 +2,7 @@ import React  from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { Upload, UploadFile } from './upload'
-//import Button from '../Button/button'
+import Button from '../Button/button'
 import Icon from '../Icon/icon'
 const defaultFileList: UploadFile[] = [
   { uid: '123', size: 1234, name: 'hello.md', status: 'uploading', percent: 30 },
@@ -20,13 +20,36 @@ const filePromise = (file: File) => {
   const newFile = new File([file], 'new_name.docx', {type: file.type})
   return Promise.resolve(newFile)
 }
+
 const SimpleUpload = () => {
+  return (
+    <Upload
+      action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+      name="file"
+      onChange={action('changed')}
+      onProgress={action('progress')}
+      onRemove={action('removed')}
+      onSuccess={action('success')}
+      defaultFileList={defaultFileList}
+    >
+      <Button
+        btnType="primary"
+        disabled={false}
+        size="lg"
+      >
+        <Icon icon="upload" />
+        点击上传
+      </Button>
+    </Upload>
+  )
+}
+
+const DropUpload = () => {
   return (
     <Upload
       action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
       onChange={action('changed')}
       onRemove={action('removed')}
-      defaultFileList={defaultFileList}
       name="fileName"
       multiple
       drag
@@ -40,3 +63,4 @@ const SimpleUpload = () => {
 
 storiesOf('Upload component', module)
   .add('Upload', SimpleUpload)
+  .add('支持拖拽上传', DropUpload)
