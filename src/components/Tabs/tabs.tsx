@@ -8,7 +8,7 @@ type SelectCallback = (selectIndex: number) => void
 
 type ItemCallback = (selectIndex: number, children: string | React.ReactNode) => void
 
-interface TabsProp {
+export interface TabsProp {
   /**Tabs的样式，两种可选，默认为 default*/
   type?: TabsType,
   /**当前激活 tab 面板的 index，默认为0*/
