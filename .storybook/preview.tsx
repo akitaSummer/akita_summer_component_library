@@ -1,6 +1,7 @@
 import React from 'react'
-import { addDecorator, addParameters } from '@storybook/react';
+import { addDecorator, addParameters, configure } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info'
+
 
 const wrapperStyle: React.CSSProperties = {
   padding: '20px 40px'
@@ -13,6 +14,14 @@ const storyWrapper = (stroyFn: any) => (
   </div>
 )
 
+const loaderFn = () => {
+  const allExports = [require('../src/welcome.stories.tsx')];
+  const req = require.context('../src/components', true, /\.stories\.tsx$/);
+  req.keys().forEach(fname => allExports.push(req(fname)));
+  return allExports;
+};
+
 addDecorator(storyWrapper)
 addDecorator(withInfo)
 addParameters({info: { inline: true, header: false}})
+configure(loaderFn, module);
